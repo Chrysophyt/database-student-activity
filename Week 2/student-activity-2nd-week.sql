@@ -60,25 +60,62 @@ INSERT INTO `products` VALUES
 
 
 INSERT INTO `orders` VALUES 
-(NULL, '2006-10-24', '2006-10-31', NULL, ' NOT SHIPPED', (SELECT customerNumber from customers where customerName='Murphy'), '2900.00'),
-(NULL, '2006-11-1', '2006-11-21', NULL, ' NOT SHIPPED', (SELECT customerNumber from customers where customerName='Jonas'), '2200.00');
+(NULL, '2006-10-24', '2006-10-31', '2006-10-28', 'DELIVERED', (SELECT customerNumber from customers where customerName='Murphy'), '2900.00'),
+(NULL, '2006-11-1', '2006-11-21', '2006-11-15', 'ON TRANSIT', (SELECT customerNumber from customers where customerName='Jonas'), '2200.00'),
+(NULL, '2007-01-9', '2007-01-16', '2007-01-15', 'ON TRANSIT', (SELECT customerNumber from customers where customerName='Chrystian'), '2510.00'),
+(NULL, '2007-01-11', '2007-01-21', NULL, 'ON PACKAGING', (SELECT customerNumber from customers where customerName='Berglund'), '1775.00'),
+(NULL, '2007-01-12', '2007-01-31', NULL, 'NOT SHIPPED', (SELECT customerNumber from customers where customerName='Ferguson'), '1875.00');
 
+--Murphy order--
 INSERT INTO `orderdetails` VALUES
 ((SELECT orderNumber FROM orders WHERE orderNumber='1'), (SELECT productCode from products WHERE productCode = '0000A01'), '2', '1600.00'),
 ((SELECT orderNumber FROM orders WHERE orderNumber='1'), (SELECT productCode from products WHERE productCode = '0000B02'), '2', '650.00'),
 ((SELECT orderNumber FROM orders WHERE orderNumber='1'), (SELECT productCode from products WHERE productCode = '0000C01'), '1', '650.00');
 
---display data--
+--Jonas order--
+INSERT INTO `orderdetails` VALUES
+((SELECT orderNumber FROM orders WHERE orderNumber='2'), (SELECT productCode from products WHERE productCode = '0000A01'), '2', '1600.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='2'), (SELECT productCode from products WHERE productCode = '0000B01'), '2', '600.00');
 
-SELECT orders.orderNumber as 
-  customerNumber, customerName, addressLine1, addressLine2, 
-  orders.orderNumber, orderDate, products.productCode, productName, 
+--Chrystian order--
+INSERT INTO `orderdetails` VALUES
+((SELECT orderNumber FROM orders WHERE orderNumber='3'), (SELECT productCode from products WHERE productCode = '0000C01'), '2', '1300.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='3'), (SELECT productCode from products WHERE productCode = '0000C02'), '2', '1210.00');
+
+--Berglund order--
+INSERT INTO `orderdetails` VALUES
+((SELECT orderNumber FROM orders WHERE orderNumber='4'), (SELECT productCode from products WHERE productCode = '0000A01'), '1', '800.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='4'), (SELECT productCode from products WHERE productCode = '0000B02'), '1', '325.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='4'), (SELECT productCode from products WHERE productCode = '0000C01'), '1', '650.00');
+
+--Ferguson order--
+INSERT INTO `orderdetails` VALUES
+((SELECT orderNumber FROM orders WHERE orderNumber='5'), (SELECT productCode from products WHERE productCode = '0000B01'), '3', '900.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='5'), (SELECT productCode from products WHERE productCode = '0000B02'), '1', '325.00'),
+((SELECT orderNumber FROM orders WHERE orderNumber='5'), (SELECT productCode from products WHERE productCode = '0000C01'), '1', '650.00');
+
+--display all order data--
+
+SELECT
+  ord.customerNumber, customerName, addressLine1, addressLine2, 
+  ord.orderNumber, orderDate, ordd.productCode, productName, 
   productFinish, quantityOrdered, productPrice, totalPrice, extendedPrice 
 from 
-  orders join customers join orderdetails join products 
-on 
-  customers.customerNumber = orders.customerNumber 
-AND 
-  orders.orderNumber = orderdetails.orderNumber 
-AND 
-  orderdetails.productCode=products.productCode;
+  orders as ord 
+  inner join customers as cstmr   on ord.customerNumber = cstmr.customerNumber
+  inner join orderdetails as ordd on ord.orderNumber = ordd.orderNumber
+  inner join products as prd      on ordd.productCode = prd.productCode
+ORDER BY ord.orderNumber;
+
+--display murphy order data--
+
+SELECT
+  ord.customerNumber, customerName, addressLine1, addressLine2, 
+  ord.orderNumber, orderDate, ordd.productCode, productName, 
+  productFinish, quantityOrdered, productPrice, totalPrice, extendedPrice 
+from 
+  orders as ord 
+  inner join customers as cstmr   on ord.customerNumber = cstmr.customerNumber
+  inner join orderdetails as ordd on ord.orderNumber = ordd.orderNumber
+  inner join products as prd      on ordd.productCode = prd.productCode
+where cstmr.customerNumber = '4'
