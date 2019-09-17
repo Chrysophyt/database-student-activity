@@ -3,7 +3,7 @@ CREATE TABLE `students` (
   `no` int,
   `nim` int NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
-  `birth_place` text NOT NULL,
+  `city` text NOT NULL,
   `age` int NOT NULL,
   `ipk` float(2,1) NOT NULL,
   `department` text,
@@ -35,4 +35,8 @@ INSERT INTO `students` VALUES
 (NULL, NULL, 'Fandi', 'Surabaya',    '19', '3.4', NULL);
 
 update `students` set `no` = (nim-12344);
+
+select distinct city from students;
+select nama from students where department ='Computer';
+
 
