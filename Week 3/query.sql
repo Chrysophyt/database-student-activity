@@ -2,7 +2,7 @@
 CREATE TABLE `students` (
   `no` int,
   `nim` int NOT NULL AUTO_INCREMENT,
-  `nama` text NOT NULL,
+  `name` text NOT NULL,
   `city` text NOT NULL,
   `age` int NOT NULL,
   `ipk` float(2,1) NOT NULL,
@@ -36,7 +36,67 @@ INSERT INTO `students` VALUES
 
 update `students` set `no` = (nim-12344);
 
-select distinct city from students;
-select nama from students where department ='Computer';
+select distinct 
+  city 
+from 
+  students;
 
 
+select 
+  name 
+from 
+  students 
+where 
+  department ='Computer';
+
+select 
+  nim, name, age, city 
+from 
+  students
+order by
+  age desc;
+
+select 
+  name, age
+from 
+  students
+where
+  city = 'Jakarta'
+order by
+  age asc
+limit 3;
+
+select 
+  name, ipk
+from 
+  students
+where
+  city = 'Jakarta' AND ipk < '2.5';
+
+select 
+  name, city
+from 
+  students
+where
+  not(city = 'Yogyakarta') AND not (city = 'Jakarta'); 
+
+select
+  name, age, ipk
+from
+  students
+where
+  ipk > '2.5' AND ipk<'3.5'; 
+
+select
+  name
+from
+  students
+where
+  name like '%a%';
+
+select
+  nim
+from
+  students
+where
+  department is null;
