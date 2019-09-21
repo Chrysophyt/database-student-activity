@@ -1,4 +1,4 @@
-
+/* No. 1*/
 CREATE TABLE `students` (
   `no` int,
   `nim` int NOT NULL AUTO_INCREMENT,
@@ -36,67 +36,75 @@ INSERT INTO `students` VALUES
 
 update `students` set `no` = (nim-12344);
 
-select distinct 
+/*No. 2*/
+SELECT DISTINCT 
   city 
-from 
+FROM 
   students;
 
-
-select 
+/*No. 3*/
+SELECT 
   name 
-from 
+FROM 
   students 
-where 
+WHERE 
   department ='Computer';
 
-select 
+/*No. 4*/
+SELECT 
   nim, name, age, city 
-from 
+FROM 
   students
-order by
-  age desc;
+ORDER BY
+  age DESC;
 
-select 
+/*No. 5*/
+SELECT 
   name, age
-from 
+FROM 
   students
-where
+WHERE
   city = 'Jakarta'
-order by
+ORDER BY
   age asc
-limit 3;
+LIMIT 3;
 
-select 
+/*No. 6*/
+SELECT 
   name, ipk
-from 
+FROM 
   students
-where
+WHERE
   city = 'Jakarta' AND ipk < '2.5';
 
-select 
+/*No. 7*/
+SELECT 
   name, city
-from 
+FROM 
   students
-where
+WHERE
   not(city = 'Yogyakarta') AND not (city = 'Jakarta'); 
 
-select
+/*No. 8*/
+SELECT
   name, age, ipk
-from
+FROM
   students
-where
+WHERE
   ipk > '2.5' AND ipk<'3.5'; 
 
-select
+/*No. 9*/
+SELECT
   name
-from
+FROM
   students
-where
+WHERE
   name like '%a%';
 
-select
+/*No. 10*/
+SELECT
   nim
-from
+FROM
   students
-where
+WHERE
   department is null;
