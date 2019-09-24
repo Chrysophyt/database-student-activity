@@ -1,0 +1,43 @@
+/*1.*/
+SELECT DISTINCT 
+    city
+FROM
+    students
+/*2.*/
+SELECT
+    MAX(ipk)
+FROM
+    students
+WHERE
+    city='Jakarta'
+/*3.*/
+SELECT
+    MIN(ipk)
+FROM
+    students
+WHERE
+    department='Computer'
+/*4.*/
+SELECT
+    AVG(ipk)
+FROM
+    students
+WHERE
+    department='Computer'
+/*5.*/
+/*6.*/
+SELECT
+    COUNT(ipk)
+FROM
+    students
+WHERE
+    department='Computer'
+/*7.*/
+SELECT
+    city, COUNT(*)
+FROM
+    students
+WHERE
+    age<20
+GROUP BY 
+    city;
